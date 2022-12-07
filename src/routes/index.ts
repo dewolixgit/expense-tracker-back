@@ -1,5 +1,5 @@
-import echoRouter from './echo';
 import Router from 'koa-router';
+import { echoRouter } from './echo';
 
 const router = new Router();
 
