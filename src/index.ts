@@ -15,7 +15,7 @@ app.use(json());
 app.use(logger());
 app.use(bodyParser());
 
-app.use(router.routes()).use(router.allowedMethods());
+app.use(router.prefix('/api').routes()).use(router.allowedMethods());
 
 app.listen(Number(port), () => {
   console.log(`Koa app started at port ${port}`);

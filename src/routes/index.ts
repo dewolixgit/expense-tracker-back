@@ -1,8 +1,9 @@
 import Router from 'koa-router';
-import { echoRouter } from './echo';
+import { testRouter } from './test';
 
 const router = new Router();
 
-router.use(echoRouter.routes());
+// api/test
+router.use(testRouter.prefix('/test').routes());
 
 export default router;
