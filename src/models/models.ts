@@ -46,6 +46,7 @@ export const Expense = sequelize.define('expense', {
   },
   date: {
     type: DataTypes.DATE,
+    allowNull: false,
   },
 });
 
