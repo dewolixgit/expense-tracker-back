@@ -75,11 +75,12 @@ const createExpenseDataSchema = Joi.object({
     .pattern(zeroDateStringReg, 'zero date iso string')
     .required(),
   categoryId: Joi.number().required(),
+  value: Joi.number().positive().required(),
 });
 
 export const createExpenseDataValidator = async (ctx: Context, next: Next) => {
   try {
-    const { date, description, categoryId } = <CreateExpenseRequestType>(
+    const { date, description, categoryId, value } = <CreateExpenseRequestType>(
       ctx.request.body
     );
 
@@ -87,6 +88,7 @@ export const createExpenseDataValidator = async (ctx: Context, next: Next) => {
       date,
       description,
       categoryId,
+      value,
     });
 
     if (validationResult.error) {

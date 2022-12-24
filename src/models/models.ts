@@ -40,6 +40,10 @@ export const Expense = sequelize.define('expense', {
     primaryKey: true,
     autoIncrement: true,
   },
+  value: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   description: {
     type: DataTypes.STRING(64),
     allowNull: true,

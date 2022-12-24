@@ -3,6 +3,7 @@ import { MessageResponse } from '../../types';
 
 export type ExpenseType = {
   id: number;
+  value: number;
   description: string;
   date: Date;
   categoryId: number;
@@ -16,6 +17,7 @@ export type GetExpensesQueryType = {
 
 export type CreateExpenseRequestType = {
   description?: ExpenseType['description'];
+  value: number;
   date: string;
   categoryId: ExpenseType['categoryId'];
 };

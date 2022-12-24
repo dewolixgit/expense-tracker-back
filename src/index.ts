@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 config();
 
 import Koa from 'koa';
+import cors from '@koa/cors';
 import logger from 'koa-logger';
 import json from 'koa-json';
 import router from './routes';
@@ -13,6 +14,7 @@ const port = process.env.PORT ?? 3000;
 
 const app = new Koa();
 
+app.use(cors());
 app.use(json());
 app.use(logger());
 app.use(bodyParser());

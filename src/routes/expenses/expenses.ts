@@ -38,7 +38,7 @@ router.get(
           where: {
             categoryId: categoriesId,
           },
-          order: sequelize.col('createdAt'),
+          order: sequelize.col('date'),
         });
 
         ctx.body = {
@@ -57,7 +57,7 @@ router.get(
               [Op.lte]: new Date(endDate),
             },
           },
-          order: sequelize.col('createdAt'),
+          order: sequelize.col('date'),
         });
 
         ctx.body = {
@@ -73,7 +73,7 @@ router.get(
             categoryId: categoriesId,
             date: new Date(startDate),
           },
-          order: sequelize.col('createdAt'),
+          order: sequelize.col('date'),
         });
 
         ctx.body = {
@@ -94,7 +94,6 @@ router.get(
   }
 );
 
-// Admin route
 // /api/expenses/get
 router.get(
   '/get',
@@ -118,7 +117,8 @@ router.get(
           where: {
             categoryId: categoriesId,
           },
-          order: sequelize.col('createdAt'),
+          include: Category,
+          order: [['date', 'DESC']],
         });
 
         ctx.body = {
@@ -137,7 +137,8 @@ router.get(
               [Op.lte]: new Date(endDate),
             },
           },
-          order: sequelize.col('createdAt'),
+          include: Category,
+          order: [['date', 'DESC']],
         });
 
         ctx.body = {
@@ -153,7 +154,8 @@ router.get(
             categoryId: categoriesId,
             date: new Date(startDate),
           },
-          order: sequelize.col('createdAt'),
+          include: Category,
+          order: [['date', 'DESC']],
         });
 
         ctx.body = {
@@ -181,9 +183,9 @@ router.post(
   async (ctx: IExpenseRequestContext) => {
     try {
       const user = ctx.user.dataValues;
-      const { date, description, categoryId } = <CreateExpenseRequestType>(
-        ctx.request.body
-      );
+      const { date, description, categoryId, value } = <
+        CreateExpenseRequestType
+      >ctx.request.body;
 
       const existingCategory = await Category.findOne({
         where: {
@@ -204,6 +206,7 @@ router.post(
         date: new Date(date),
         description,
         categoryId,
+        value,
       });
 
       ctx.status = 200;
